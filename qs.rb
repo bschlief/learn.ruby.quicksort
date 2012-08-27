@@ -1,30 +1,19 @@
-def quicksort (array)
-	
-	print "input arr: {" , array, "}\n"
-	
-	if (array.length() <= 1)
-		return array
-	end
+#!/usr/bin/env ruby
 
-	pivot = array.pop()
-
-	lte = []
-	gt = []
-	for i in array
-		if (i <= pivot)
-			lte.push(i)
-		elsif (i > pivot)
-			gt.push(i)
-		end
-	end
-
-	print "lte arr #{lte.length()}: {" , lte, "}\n"
-	print "gt arr #{gt.length()}: {" , gt, "}\n"
-
-	return quicksort(lte), pivot, quicksort(gt)
+def quicksort(array)
+  return array if array.length <= 1
+  pivot = array.pop
+  lte=[]
+  gt=[]
+  array.each do |i|
+    lte << i if (i <= pivot)
+    gt << i if (i > pivot)
+  end
+  return quicksort(lte) + [pivot] + quicksort(gt)
 end
 
+to_sort = (((0..10).to_a)*3).shuffle 
 
-sorted = quicksort( [3,2,1,4,0,5] )
-
-print "sorted: " , sorted, "\n"
+sorted = quicksort(to_sort) 
+puts to_sort.inspect
+puts sorted.inspect
